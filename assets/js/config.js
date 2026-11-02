@@ -1,6 +1,6 @@
 window.OPEN_CONFIG = Object.freeze({
-  "whatsapp": "5587996443020",
-  "contactDisplay": "(87) 99644-3020",
+  "whatsapp": "5574999659042",
+  "contactDisplay": "(74) 99965-9042",
   "uniformsEnabled": true,
   "maps": "https://www.google.com/maps?q=-11.5292488,-40.3026961&z=17&hl=pt-BR",
   "latitude": -11.5292488,
