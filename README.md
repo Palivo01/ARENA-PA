@@ -1,4 +1,4 @@
-# Arena P.A. — Site versão 1.5.3
+# Arena P.A. — Site versão 1.5.4
 HTML, CSS e JavaScript. Abra index.html ou publique os arquivos em sua hospedagem. Esta entrega é somente ZIP, sem publicação.
 
 Contato para envio de inscrição: (74) 99965-9042, configurado como 5574999659042.
@@ -14,10 +14,12 @@ Versão 1.3: as 21 fotos são embaralhadas a cada abertura da página, sem dupli
 
 Versão 1.4: removida a opção de copiar dados da revisão. Mantidos envio pelo WhatsApp, voltar para editar e fechar revisão.
 
-Versão 1.5: sete categorias, programação atualizada e regras de Kids (criança até 14 anos + adulto) e Misto Aprendiz (mulher e homem aprendizes). Primeiro lote divulgado, novas categorias disponíveis no formulário e na mensagem do WhatsApp.
+Versão 1.5: sete categorias, programação atualizada e regras de Kids (criança até 14 anos + adulto) e Misto Aprendiz (mulher aprendiz e homem aprendiz ou iniciante). Primeiro lote divulgado, novas categorias disponíveis no formulário e na mensagem do WhatsApp.
 
 Versão 1.5.1: removidas as setas decorativas dos links e botões; adicionados ícones vetoriais do Google Maps e Waze nos botões de localização.
 
 Versão 1.5.2: removido o contato direto para inscrições no rodapé; envio pelo WhatsApp continua disponível após preenchimento e revisão do formulário.
 
-Versão 1.5.3: regra do Misto Aprendiz destacada também na programação, no mesmo formato da regra do Kids. Ambos os integrantes da dupla devem ser aprendizes.
+Versão 1.5.3: regra do Misto Aprendiz destacada também na programação, no mesmo formato da regra do Kids. Mulher aprendiz e homem aprendiz ou iniciante.
+
+Versão 1.5.4: regra do Misto Aprendiz atualizada na programação, formulário e perguntas frequentes: mulher aprendiz e homem aprendiz ou iniciante.

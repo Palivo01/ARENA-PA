@@ -143,7 +143,7 @@
       option.checked = false; toggleCategory(category, false); option.focus();
     });
     heading.append(title,remove);
-    const date = document.createElement('p'); date.className = 'field-help'; date.textContent = category.schedule + (category.id === 'kids' ? ' • Uma criança de até 14 anos e um adulto' : category.id === 'misto-aprendiz' ? ' • Uma mulher aprendiz e um homem aprendiz' : isMixed(category.id) ? ' • Um homem e uma mulher' : '');
+    const date = document.createElement('p'); date.className = 'field-help'; date.textContent = category.schedule + (category.id === 'kids' ? ' • Uma criança de até 14 anos e um adulto' : category.id === 'misto-aprendiz' ? ' • Mulher aprendiz e homem aprendiz ou iniciante' : isMixed(category.id) ? ' • Um homem e uma mulher' : '');
     const row = document.createElement('div'); row.className = 'input-grid';
     const one = makeInput(`${category.id}-one`, `${athleteLabel(category.id, 'one')} *`, state.one, true);
     const two = makeInput(`${category.id}-two`, `${athleteLabel(category.id, 'two')} *`, state.two, !state.pending);
