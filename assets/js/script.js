@@ -83,7 +83,7 @@
     label.append(input);
     return {label, input};
   }
-  function isMixed(categoryId) { return ['misto-aprendiz'].includes(categoryId); }
+  function isMixed(categoryId) { return ['misto-aprendiz', 'misto-aberto'].includes(categoryId); }
   function uniformRules(categoryId, athlete) {
     if (categoryId === 'kids' && athlete === 'one') return config.uniforms.child;
     if (categoryId === 'feminino') return config.uniforms.female;
@@ -91,7 +91,7 @@
     return config.uniforms.adult;
   }
   function athleteLabel(categoryId, athlete) {
-    if (categoryId === 'kids') return athlete === 'one' ? 'Atleta 1 (Kids)' : 'Atleta 2';
+    if (categoryId === 'kids') return athlete === 'one' ? 'Criança (até 14 anos)' : 'Atleta adulto';
     if (isMixed(categoryId)) return athlete === 'one' ? 'Atleta homem' : 'Atleta mulher';
     if (categoryId === 'feminino') return athlete === 'one' ? 'Atleta 1' : 'Atleta 2';
     return athlete === 'one' ? 'Atleta 1' : 'Atleta 2';
@@ -143,7 +143,7 @@
       option.checked = false; toggleCategory(category, false); option.focus();
     });
     heading.append(title,remove);
-    const date = document.createElement('p'); date.className = 'field-help'; date.textContent = category.schedule + (category.id === 'kids' ? ' • Misto Kids Aprendiz' : isMixed(category.id) ? ' • Um homem e uma mulher' : '');
+    const date = document.createElement('p'); date.className = 'field-help'; date.textContent = category.schedule + (category.id === 'kids' ? ' • Uma criança de até 14 anos e um adulto' : category.id === 'misto-aprendiz' ? ' • Uma mulher aprendiz e um homem aprendiz' : isMixed(category.id) ? ' • Um homem e uma mulher' : '');
     const row = document.createElement('div'); row.className = 'input-grid';
     const one = makeInput(`${category.id}-one`, `${athleteLabel(category.id, 'one')} *`, state.one, true);
     const two = makeInput(`${category.id}-two`, `${athleteLabel(category.id, 'two')} *`, state.two, !state.pending);

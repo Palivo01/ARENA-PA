@@ -8,8 +8,8 @@ window.OPEN_CONFIG = Object.freeze({
   "categories": [
     {
       "id": "kids",
-      "name": "Kids Aprendiz",
-      "schedule": "11/12 • 18h"
+      "name": "Kids",
+      "schedule": "11/12 • 17h"
     },
     {
       "id": "misto-aprendiz",
@@ -17,19 +17,29 @@ window.OPEN_CONFIG = Object.freeze({
       "schedule": "12/12 • 8h"
     },
     {
+      "id": "aprendiz",
+      "name": "Aprendiz",
+      "schedule": "12/12 • 13h"
+    },
+    {
+      "id": "misto-aberto",
+      "name": "Misto Aberto",
+      "schedule": "12/12 • 17h"
+    },
+    {
       "id": "iniciante",
       "name": "Iniciante",
-      "schedule": "12/12 • 13h"
+      "schedule": "13/12 • 8h"
     },
     {
       "id": "feminino",
       "name": "Feminino",
-      "schedule": "13/12 • 8h"
+      "schedule": "13/12 • 12h30"
     },
     {
       "id": "intermediario",
       "name": "Intermediário",
-      "schedule": "13/12 • 13h"
+      "schedule": "13/12 • 16h30"
     }
   ],
   "uniforms": {
