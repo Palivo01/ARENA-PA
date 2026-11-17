@@ -9,27 +9,32 @@ window.OPEN_CONFIG = Object.freeze({
     {
       "id": "misto-aprendiz",
       "name": "Misto Aprendiz",
-      "schedule": "11/12 • 17h"
+      "schedule": "11/12 • 17h",
+      "uniformImage": "assets/images/uniformes/misto-aprendiz.png"
     },
     {
       "id": "aprendiz",
       "name": "Aprendiz",
-      "schedule": "12/12 • 8h"
+      "schedule": "12/12 • 8h",
+      "uniformImage": "assets/images/uniformes/aprendiz.png"
     },
     {
       "id": "iniciante",
       "name": "Iniciante",
-      "schedule": "12/12 • 13h"
+      "schedule": "12/12 • 13h",
+      "uniformImage": "assets/images/uniformes/iniciante.png"
     },
     {
       "id": "misto-aberto",
       "name": "Misto Aberto",
-      "schedule": "13/12 • 8h"
+      "schedule": "13/12 • 8h",
+      "uniformImage": "assets/images/uniformes/misto-aberto.png"
     },
     {
       "id": "intermediario",
       "name": "Intermediário",
-      "schedule": "13/12 • 13h"
+      "schedule": "13/12 • 13h",
+      "uniformImage": "assets/images/uniformes/intermediario.png"
     }
   ],
   "uniforms": {

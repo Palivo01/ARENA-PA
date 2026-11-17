@@ -52,3 +52,10 @@ legend>.required-mark{display:inline;width:auto;height:auto;border-radius:0;back
 
 /* Ícones dos aplicativos de navegação. */
 .location-actions .navigation-icon{display:block;flex:0 0 auto;width:26px;height:30px}.location-actions .button{gap:10px}
+
+/* Uniformes masculinos por categoria. */
+.category-uniform{margin:18px 0 22px;background:#f5f5f2;border:1px solid #e0e3df;border-radius:6px;overflow:hidden}
+.category-uniform img{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:contain;background:#f5f5f2}
+.category-uniform figcaption{padding:10px 12px;text-align:center;font:600 10px/1.5 Arial,sans-serif;color:#536471;border-top:1px solid #e0e3df}
+.form-uniform{width:min(100%,220px);margin:16px auto 24px}
+@media(max-width:760px){.prize-card .category-uniform{max-width:300px;margin:18px auto 22px}}

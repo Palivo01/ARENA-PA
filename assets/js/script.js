@@ -165,7 +165,8 @@
     two.input.addEventListener('input', () => { state.two = two.input.value; clearError(); });
     uniformOne.setPending(false);
     updatePartner();
-    choice.append(checkbox,text); row.append(athleteOne,athleteTwo); card.append(heading,date,row,choice);
+    choice.append(checkbox,text); row.append(athleteOne,athleteTwo); card.append(heading,date);
+    card.append(row,choice);
     // Keep chosen categories in the same order as the quick selection, without rebuilding inputs.
     const following = config.categories.slice(config.categories.indexOf(category) + 1).find(c => selection.has(c.id));
     $('teams').insertBefore(card, following ? $(`team-${following.id}`) : null);

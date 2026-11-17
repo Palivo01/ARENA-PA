@@ -1,4 +1,4 @@
-# Arena P.A. — Site versão 1.6.1
+# Arena P.A. — Site versão 1.7
 Site estático em HTML, CSS e JavaScript. Entrega em ZIP, sem publicação.
 
 Programação: 11 a 13 de dezembro de 2026. Cinco categorias: Misto Aprendiz, Aprendiz, Misto Aberto, Iniciante e Intermediário. Kids e Feminino removidos da programação e das inscrições.
@@ -17,3 +17,5 @@ Programação atualizada:
 - Iniciante: 12/12 • 13h
 - Misto Aberto: 13/12 • 8h
 - Intermediário: 13/12 • 13h
+
+Versão 1.7: mockups masculinos no manequim para cada categoria, exibidos nos cards de premiação e ao selecionar a categoria no formulário. Camisa e bermuda masculina; sem short curto. Roxo: Misto Aprendiz; amarelo: Aprendiz; azul: Iniciante; laranja: Misto Aberto; preto/verde: Intermediário.
