@@ -85,15 +85,11 @@
   }
   function isMixed(categoryId) { return ['misto-aprendiz', 'misto-aberto'].includes(categoryId); }
   function uniformRules(categoryId, athlete) {
-    if (categoryId === 'kids' && athlete === 'one') return config.uniforms.child;
-    if (categoryId === 'feminino') return config.uniforms.female;
     if (isMixed(categoryId) && athlete === 'two') return config.uniforms.mixedFemale;
     return config.uniforms.adult;
   }
   function athleteLabel(categoryId, athlete) {
-    if (categoryId === 'kids') return athlete === 'one' ? 'Criança (até 14 anos)' : 'Atleta adulto';
     if (isMixed(categoryId)) return athlete === 'one' ? 'Atleta homem' : 'Atleta mulher';
-    if (categoryId === 'feminino') return athlete === 'one' ? 'Atleta 1' : 'Atleta 2';
     return athlete === 'one' ? 'Atleta 1' : 'Atleta 2';
   }
   function makeUniform(categoryId, athlete, state) {
@@ -105,7 +101,7 @@
     group.className = 'uniform-fields';
     group.id = `${categoryId}-${athlete}-uniform`;
     group.hidden = false;
-    const title = document.createElement('p'); title.className = 'uniform-title'; title.textContent = categoryId === 'feminino' ? `Uniforme da atleta ${athlete === 'one' ? '1' : '2'}` : categoryId === 'kids' && athlete === 'one' ? 'Uniforme do atleta infantil' : 'Uniforme deste atleta';
+    const title = document.createElement('p'); title.className = 'uniform-title'; title.textContent = 'Uniforme deste atleta';
     group.append(title);
     const fields = {};
     for (const [key, labelText, options] of [
@@ -131,7 +127,7 @@
     const state = drafts.get(category.id) || {one:'', two:'', pending:false, uniformOne:{short:'', model:'', shirt:''}, uniformTwo:{short:'', model:'', shirt:''}};
     drafts.set(category.id, state);
     const card = document.createElement('section');
-    card.className = category.id === 'feminino' ? 'team-card female-team' : 'team-card'; card.id = `team-${category.id}`;
+    card.className = 'team-card'; card.id = `team-${category.id}`;
     card.setAttribute('aria-label', `Atletas: ${category.name}`);
     const heading = document.createElement('div'); heading.className = 'team-heading';
     const title = document.createElement('h4'); title.textContent = category.name;
@@ -143,7 +139,7 @@
       option.checked = false; toggleCategory(category, false); option.focus();
     });
     heading.append(title,remove);
-    const date = document.createElement('p'); date.className = 'field-help'; date.textContent = category.schedule + (category.id === 'kids' ? ' • Uma criança de até 14 anos e um adulto' : category.id === 'misto-aprendiz' ? ' • Mulher aprendiz e homem aprendiz ou iniciante' : isMixed(category.id) ? ' • Um homem e uma mulher' : '');
+    const date = document.createElement('p'); date.className = 'field-help'; date.textContent = category.schedule + (category.id === 'misto-aprendiz' ? ' • Mulher aprendiz e homem aprendiz ou iniciante' : isMixed(category.id) ? ' • Um homem e uma mulher' : '');
     const row = document.createElement('div'); row.className = 'input-grid';
     const one = makeInput(`${category.id}-one`, `${athleteLabel(category.id, 'one')} *`, state.one, true);
     const two = makeInput(`${category.id}-two`, `${athleteLabel(category.id, 'two')} *`, state.two, !state.pending);
@@ -191,7 +187,7 @@
   function clean(value) { return value.trim().replace(/\s+/g,' '); }
   function validate() {
     clearError();
-    if (!selection.size) { showError('Selecione pelo menos uma categoria.', $('cat-kids')); return false; }
+    if (!selection.size) { showError('Selecione pelo menos uma categoria.', $('cat-' + config.categories[0].id)); return false; }
     for (const category of selectedCategories()) {
       const state = drafts.get(category.id);
       if (clean(state.one).length < 2) { showError(`Informe o nome do Atleta 1 em ${category.name}.`, $(`${category.id}-one`)); return false; }
