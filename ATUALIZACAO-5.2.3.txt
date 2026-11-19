@@ -1,0 +1,25 @@
+ROTEIRIZZE TORNEIOS 5.2.3
+
+ÚLTIMA CATEGORIA UTILIZADA
+O painel lembra a categoria selecionada e a categoria do último jogo salvo,
+iniciado, reaberto, corrigido ou com quadra definida. Ao retornar à competição
+sem uma categoria explícita no link, ela volta a ser a categoria atual.
+O seletor Escolher jogo mostra primeiro as partidas dessa categoria, mantendo
+as demais disponíveis. Nenhuma partida é escolhida automaticamente.
+
+A memória é local ao navegador, separada por competição e por conta. Um link
+com categoria explícita continua abrindo a categoria pedida. Se uma categoria
+for excluída, o painel usa uma categoria válida. Navegação pública e painel
+administrativo têm preferências separadas. Limpar os dados do navegador apaga
+essa preferência. Falhas de armazenamento não bloqueiam o uso do painel.
+A categoria de um lançamento só é lembrada após o salvamento no servidor.
+
+113 testes JavaScript aprovados. Fluxo com duas categorias conferido em navegador:
+resultado na segunda categoria, retorno sem categoria na URL e prioridade da
+categoria anterior na lista de jogos. Conferência com dados fictícios locais.
+
+Publique o conteúdo completo de Torneio-main e confira v5.2.3 no rodapé.
+Inclua category-memory.js, além dos demais arquivos, assets e vendor.
+Não existe SQL adicional para quem já instalou a base 5.2.
+Sorteios, resultados e regras foram preservados. Nenhum dado de produção foi
+modificado nesta entrega.

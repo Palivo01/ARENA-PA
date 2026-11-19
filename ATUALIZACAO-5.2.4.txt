@@ -1,0 +1,23 @@
+ROTEIRIZZE TORNEIOS 5.2.4
+
+ARRASTE COM UM DEDO
+Corrigida a interrupção do primeiro dedo quando o arraste começa sobre um cartão.
+A perda de captura de um elemento filho não deve encerrar a navegação da tabela.
+No celular, o controlador passa a tratar os eventos nativos de toque: um dedo move
+a tabela, dois dedos ampliam e o dedo restante continua o arraste após a pinça.
+Eventos Pointer de toque duplicados são ignorados quando o caminho nativo está ativo.
+Ações dos botões continuam disponíveis por toque simples, sem selecionar partidas
+por acidente depois de um arraste. A página fora da tabela mantém sua rolagem normal.
+
+VALIDAÇÃO
+Falha reproduzida com o controlador da 5.2.3: lostpointercapture do cartão removia
+o primeiro dedo. Na 5.2.4 o mesmo caso mantém o dedo ativo e o movimento continua.
+117 testes JavaScript aprovados, incluindo toque nativo com um dedo sobre cartão,
+pinça, transição de dois para um dedo, cancelamento e eventos duplicados.
+Os casos de toque foram simulados. Não houve teste físico em aparelho celular.
+
+INSTALAÇÃO
+Publique o conteúdo completo de Torneio-main, incluindo assets, vendor e todos os
+scripts. Aguarde o deploy, atualize a página e confira v5.2.4 no rodapé.
+Não há SQL novo. Regras, sorteios, resultados, favicon e memória da última categoria
+foram preservados. Nenhum dado de produção foi modificado nesta revisão.

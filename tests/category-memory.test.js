@@ -1,0 +1,10 @@
+'use strict';
+const {test}=require('node:test'),assert=require('node:assert/strict'),Memory=require('../category-memory.js');
+const categories=[{id:'primeira'},{id:'ultima'}],ctx={scope:'admin:paulo',competition:'ct-cunha'};
+function fixture(){const values=new Map(),storage={getItem:k=>values.get(k),setItem:(k,v)=>values.set(k,v)};return {m:Memory.create(()=>storage),storage};}
+test('Retornar e recarregar a competição recupera a última categoria, sem depender do URL anterior',()=>{const {m,storage}=fixture();m.remember(ctx,'ultima');assert.equal(Memory.create(()=>storage).choose(categories,'',ctx).id,'ultima');});
+test('O histórico da categoria é separado por competição e por conta',()=>{const {m}=fixture();m.remember(ctx,'ultima');assert.equal(m.choose(categories,'',{...ctx,competition:'outra'}).id,'primeira');assert.equal(m.choose(categories,'',{...ctx,scope:'admin:carla'}).id,'primeira');assert.equal(m.choose(categories,'',{...ctx,scope:'public'}).id,'primeira');});
+test('Escolher explicitamente outra categoria continua permitido',()=>{const {m}=fixture();m.remember(ctx,'ultima');assert.equal(m.choose(categories,'primeira',ctx).id,'primeira');});
+test('Categoria excluída ou link antigo não impede o retorno a uma categoria válida',()=>{const {m}=fixture();m.remember(ctx,'excluida');assert.equal(m.choose(categories,'link-antigo',ctx).id,'primeira');assert.equal(m.choose([],'',ctx),null);m.remember(ctx,'ultima');assert.equal(m.choose(categories,'link-antigo',ctx).id,'ultima');});
+test('A lista para lançar jogos prioriza a categoria atual sem mudar a ordem cadastrada',()=>{const {m}=fixture();assert.deepEqual(m.ordered(categories,'ultima').map(c=>c.id),['ultima','primeira']);assert.deepEqual(categories.map(c=>c.id),['primeira','ultima']);});
+test('Armazenamento bloqueado não impede abrir a categoria ou salvar jogos',()=>{const m=Memory.create(()=>{throw Error('bloqueado');});assert.doesNotThrow(()=>m.remember(ctx,'ultima'));assert.equal(m.choose(categories,'',ctx).id,'primeira');});

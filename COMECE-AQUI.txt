@@ -1,0 +1,403 @@
+ROTEIRIZZE TORNEIOS 6.0.1
+
+CORREÇÃO VISUAL DAS ORIGENS NA REPESCAGEM
+Os jogos da repescagem ainda sem cruzamento definido mostram as origens possíveis,
+como V5 ou V6 contra P7 ou P8, em vez de apenas Aguardando cruzamento.
+P significa perdedor e V significa vencedor do jogo indicado. Uma sequência como
+P1 a P4 inclui os perdedores dos jogos 1, 2, 3 e 4. Listas com intervalos ausentes
+não são agrupadas como se esses jogos também fossem elegíveis.
+Essas possibilidades não são confrontos fixos. Depois que o cruzamento automático
+é definido, os nomes e referências exatas passam a aparecer normalmente.
+A mesma informação aparece na tabela completa, na lista de jogos e na impressão.
+
+PRESERVAÇÃO
+Correção somente de apresentação. O motor, as tabelas, as regras, o sorteio,
+os cruzamentos definidos, as quadras atribuídas e os resultados foram preservados.
+Nenhuma gravação, migração ou recálculo foi executado no Supabase de produção.
+Não use Sortear novamente nem Zerar para instalar esta correção.
+
+ATUALIZAÇÃO DURANTE A COMPETIÇÃO
+Para quem já usa a 6.0.0 funcionando, não existe SQL novo.
+Faça uma pausa breve nos lançamentos, publique todo o conteúdo de Torneio-main
+na raiz servida e aguarde a conclusão do deploy. Inclua match-origins.js e todos
+os HTML, scripts, styles.css, assets e vendor. A pasta supabase não precisa subir.
+Depois, os operadores devem recarregar as páginas e conferir v6.0.1 no rodapé.
+Não é necessário exportar/importar para aplicar a correção nem refazer o sorteio.
+Se quiser, exporte um backup como cópia de segurança opcional.
+
+VALIDAÇÃO
+171 testes JavaScript aprovados. Novos testes verificam origens possíveis em todas
+as 27 tabelas, transição para referências exatas, exibição no painel e no público,
+impressão e preservação byte a byte dos dados de uma competição com jogo ao vivo.
+Conferência no navegador com tabela de 8 duplas pendente, 8 em andamento e 32 duplas:
+cartões sem sobreposição. Testes e visualização usaram somente dados fictícios.
+
+
+HISTÓRICO DAS VERSÕES ANTERIORES
+
+ROTEIRIZZE TORNEIOS 6.0.0
+
+TABELAS ADICIONADAS
+25 duplas: 7 biônicos, 9 partidas na primeira rodada, 48 jogos no total.
+26 duplas: 6 biônicos, 10 partidas na primeira rodada, 50 jogos no total.
+27 duplas: 5 biônicos, 11 partidas na primeira rodada, 52 jogos no total.
+29 duplas: 3 biônicos, 13 partidas na primeira rodada, 56 jogos no total.
+31 duplas: 1 biônico, 15 partidas na primeira rodada, 60 jogos no total.
+Os totais incluem duas semifinais, final e disputa de terceiro lugar.
+Agora todas as quantidades de 6 até 32 duplas estão disponíveis, sem intervalos.
+Nesta solicitação, 5 e 7 foram entendidos como 25 e 27 pelo contexto da lista
+anterior de tabelas ausentes. A tabela de 7 já existia; a de 5 não foi adicionada.
+
+COMO A LÓGICA FOI PRESERVADA
+As cinco tabelas derivam da estrutura existente de 32 duplas. As vagas vazias
+foram distribuídas entre as metades. Cada biônico deixa de jogar apenas a primeira
+rodada; a partida dispensada não recebe número e não produz um perdedor fictício.
+As entradas correspondentes também são retiradas da repescagem, comprimindo os
+avanços sem partida até restarem somente confrontos entre duas duplas reais.
+A chave dos vencedores mantém avanço linear dentro de cada metade. Quantidades
+ímpares ficam divididas em metades com diferença de uma dupla.
+As 22 tabelas que já existiam não foram alteradas.
+
+CRUZAMENTOS AUTOMÁTICOS
+Inclui as mudanças da 5.3.0: novos sorteios usam cruzamentos automáticos por etapa
+para reduzir reencontros na repescagem e, quando possível, nas semifinais. Não é
+garantia de ausência de reencontros até a final em qualquer combinação de resultados.
+A etapa aguarda seus classificados antes de definir e fixar seus confrontos.
+Partidas independentes já definidas continuam disponíveis para lançamento.
+Categorias e resultados antigos não são recalculados pela atualização.
+
+COMO ATUALIZAR
+1. Exporte os backups JSON e guarde o ZIP anterior. Pause os lançamentos enquanto
+   publica e atualiza todos os aparelhos.
+2. Se já executou supabase/005_v53_crossings.sql da 5.3.0, não existe SQL adicional.
+   Se ainda está na 5.2.4, execute esse mesmo SQL 005 antes de publicar a 6.0.0.
+   Ele pressupõe a base 001 e os complementos 003 e 004 já instalados.
+3. Publique todo o conteúdo de Torneio-main na raiz servida. Inclua todos os HTML,
+   JavaScript, assets e vendor. A pasta supabase não precisa ir para a hospedagem.
+   Não há build nem instalação de dependências para o site funcionar.
+4. Após a publicação, atualize a página (Ctrl+Shift+R) e confira v6.0.0 no rodapé.
+   As quantidades novas aparecem no cadastro de categoria. Categorias sorteadas
+   continuam com a quantidade, posições e resultados que já tinham.
+
+VALIDAÇÃO
+163 testes JavaScript aprovados. Incluem 432 torneios completos simulados nas
+27 quantidades disponíveis com a regra nova, além dos cenários históricos.
+Foram verificados progressão, quedas, classificados únicos, backups, quantidade
+de biônicos, impressão e desenho sem sobreposição. As cinco novas tabelas também
+foram conferidas no navegador com dados fictícios, sem cartões sobrepostos.
+O gerador reproduzível está em scripts/complete-tables.cjs; não é executado pelo site.
+Nenhum dado de produção nem publicação no GitHub foi alterado nesta entrega.
+
+
+HISTÓRICO DAS VERSÕES ANTERIORES
+
+ROTEIRIZZE TORNEIOS 5.3.0
+
+CRUZAMENTOS AUTOMÁTICOS PARA NOVOS SORTEIOS
+A chave dos vencedores mantém seu avanço linear em cada metade. Os biônicos,
+os IDs das partidas e a quantidade de jogos de cada tabela continuam iguais.
+
+A cada etapa da repescagem, o sistema aguarda seus classificados e escolhe a
+combinação com menos reencontros, preservando as entradas de perdedores e
+vencedores previstas na estrutura. Em empate, prefere duplas de metades opostas.
+A semifinal também cruza automaticamente os classificados da repescagem se isso
+reduzir reencontros. Não depende de um botão durante a operação do torneio.
+
+Os cruzamentos de uma etapa ficam fixos assim que ela é liberada. Não mudam
+por resultados posteriores. As semifinais ficam bloqueadas para troca após
+qualquer uma receber quadra, início ou resultado. Correções continuam preservando
+os registros e sinalizando resultados incompatíveis com participantes corrigidos.
+Uma correção de origem não refaz automaticamente confrontos já publicados.
+
+Não é uma promessa de ausência absoluta de reencontros até a final: o sistema
+minimiza os reencontros entre os classificados elegíveis da etapa, dentro da
+estrutura existente. Há cenários em que um reencontro é inevitável.
+As partidas já definidas dos vencedores continuam livres para lançamento. Uma
+etapa da repescagem precisa receber seus classificados antes de definir as
+combinações; isso não bloqueia partidas independentes.
+
+PRESERVAÇÃO DAS COMPETIÇÕES
+Categorias antigas mantêm seu sorteio, rotas, semifinal e resultados existentes.
+A nova regra vale para sorteios feitos nesta versão, incluindo Sortear novamente.
+Não use Sortear novamente em competição em andamento para aplicar esta regra:
+essa ação apaga os resultados da categoria e exige digitar SORTEAR.
+Nenhum dado do site ou do Supabase de produção foi alterado nesta entrega.
+
+COMO ATUALIZAR QUEM JÁ ESTÁ NA 5.2.4
+1. Exporte os backups JSON e guarde o ZIP anterior. Pause os lançamentos e feche
+   os painéis antigos para atualizar todos os aparelhos juntos.
+2. Execute somente supabase/005_v53_crossings.sql no SQL Editor como postgres.
+   Ele pressupõe a base 001 e os complementos 003 e 004 já instalados.
+   Não altera registros, sorteios, placares, tokens nem revisões existentes.
+   Bloqueia gravações de clientes anteriores para não descartar as rotas novas.
+3. Substitua todo o conteúdo servido pelo conteúdo de Torneio-main. Inclua
+   crossings.js e todos os scripts, HTML, assets e vendor. Não precisa de build.
+   A pasta supabase não precisa ser enviada à hospedagem.
+4. Aguarde a publicação, atualize as páginas (Ctrl+Shift+R) e confira v5.3.0.
+   Confira uma competição antiga antes de retomar os lançamentos.
+
+VERIFICAÇÃO
+146 testes JavaScript aprovados. Incluem 352 torneios completos simulados nas
+22 quantidades disponíveis (6 a 24, 28, 30 e 32 duplas), com lançamentos em ordens
+variadas, validação de backups, linearidade dos vencedores e rotas sem duplicação.
+O caso de reencontro Theo/Palivo contra Peu/Leo foi reproduzido na tabela antiga;
+a nova regra foi testada com alternativas que evitam esse reencontro.
+30 verificações locais PostgreSQL aprovadas: permissões, revisões, migração
+repetível e preservação de registros. Visualização conferida em navegador com
+dados fictícios locais. Não houve teste físico de pinça em celular nesta revisão.
+Favicon, gestos, memória de categoria e tabelas, inclusive 30 duplas, preservados.
+
+
+HISTÓRICO DAS VERSÕES ANTERIORES (INSTRUÇÕES HISTÓRICAS)
+
+ROTEIRIZZE TORNEIOS 5.2.4
+
+ARRASTE COM UM DEDO
+Corrigida a interrupção do primeiro dedo quando o arraste começa sobre um cartão.
+A perda de captura de um elemento filho não deve encerrar a navegação da tabela.
+No celular, o controlador passa a tratar os eventos nativos de toque: um dedo move
+a tabela, dois dedos ampliam e o dedo restante continua o arraste após a pinça.
+Eventos Pointer de toque duplicados são ignorados quando o caminho nativo está ativo.
+Ações dos botões continuam disponíveis por toque simples, sem selecionar partidas
+por acidente depois de um arraste. A página fora da tabela mantém sua rolagem normal.
+
+VALIDAÇÃO
+Falha reproduzida com o controlador da 5.2.3: lostpointercapture do cartão removia
+o primeiro dedo. Na 5.2.4 o mesmo caso mantém o dedo ativo e o movimento continua.
+117 testes JavaScript aprovados, incluindo toque nativo com um dedo sobre cartão,
+pinça, transição de dois para um dedo, cancelamento e eventos duplicados.
+Os casos de toque foram simulados. Não houve teste físico em aparelho celular.
+
+INSTALAÇÃO
+Publique o conteúdo completo de Torneio-main, incluindo assets, vendor e todos os
+scripts. Aguarde o deploy, atualize a página e confira v5.2.4 no rodapé.
+Não há SQL novo. Regras, sorteios, resultados, favicon e memória da última categoria
+foram preservados. Nenhum dado de produção foi modificado nesta revisão.
+
+
+HISTÓRICO E GUIA
+
+ROTEIRIZZE TORNEIOS 5.2.3
+
+ÚLTIMA CATEGORIA UTILIZADA
+O painel lembra a categoria selecionada e a categoria do último jogo salvo,
+iniciado, reaberto, corrigido ou com quadra definida. Ao retornar à competição
+sem uma categoria explícita no link, ela volta a ser a categoria atual.
+O seletor Escolher jogo mostra primeiro as partidas dessa categoria, mantendo
+as demais disponíveis. Nenhuma partida é escolhida automaticamente.
+
+A memória é local ao navegador, separada por competição e por conta. Um link
+com categoria explícita continua abrindo a categoria pedida. Se uma categoria
+for excluída, o painel usa uma categoria válida. Navegação pública e painel
+administrativo têm preferências separadas. Limpar os dados do navegador apaga
+essa preferência. Falhas de armazenamento não bloqueiam o uso do painel.
+A categoria de um lançamento só é lembrada após o salvamento no servidor.
+
+113 testes JavaScript aprovados. Fluxo com duas categorias conferido em navegador:
+resultado na segunda categoria, retorno sem categoria na URL e prioridade da
+categoria anterior na lista de jogos. Conferência com dados fictícios locais.
+
+Publique o conteúdo completo de Torneio-main e confira v5.2.3 no rodapé.
+Inclua category-memory.js, além dos demais arquivos, assets e vendor.
+Não existe SQL adicional para quem já instalou a base 5.2.
+Sorteios, resultados e regras foram preservados. Nenhum dado de produção foi
+modificado nesta entrega.
+
+
+HISTÓRICO E GUIA
+
+ROTEIRIZZE TORNEIOS 5.2.2
+
+NAVEGAÇÃO DA TABELA
+O arraste move a tabela diretamente na distância percorrida pelo dedo ou mouse,
+inclusive quando a tabela inteira cabe na área. Não há inércia ao soltar.
+A pinça mantém o ponto entre os dois dedos. Ao retirar um dedo, o outro continua
+o arraste a partir da posição atual. As alterações são desenhadas uma vez por quadro,
+sem redimensionar a superfície de rolagem a cada movimento.
+Tela cheia utiliza a área real disponível do aparelho, sem escala intermediária de
+1920 x 1080. Ver tudo reenquadra a tabela; Ler nomes abre o começo em 100%.
+No computador, roda/trackpad movem a tabela; Ctrl + roda ou pinça do trackpad dão zoom.
+As setas do teclado movem a tabela quando sua área está focada.
+
+VALIDAÇÃO
+107 testes JavaScript aprovados. Incluem pinça com dois pontos, transição de dois
+para um dedo, cancelamento de gesto, zoom ancorado, pintura por quadro, ausência
+de inércia e arraste quando a tabela cabe inteira na tela.
+Arraste, zoom por controles e tela cheia conferidos no navegador de computador;
+arraste também conferido em uma área de 390px. Pinça física no celular não foi
+executada; o comportamento de dois dedos foi validado por simulação.
+
+PUBLICAÇÃO
+Este é um pacote completo. Publique o conteúdo de Torneio-main na raiz servida,
+incluindo assets e vendor. Aguarde o deploy, atualize a página e confira v5.2.2 no
+rodapé. Não há SQL adicional para quem já instalou a base 5.2. O SQL 004 continua
+necessário para o portal se ainda não foi executado.
+Conexão, regras, categorias, posições sorteadas e resultados foram preservados.
+Nenhum dado de produção foi modificado nesta entrega.
+
+
+HISTÓRICO E GUIA DA BASE
+
+ROTEIRIZZE TORNEIOS 5.2.2
+
+AJUSTES ADICIONAIS DA 5.2.0
+Tabela de 30 duplas: 58 partidas, 14 confrontos iniciais e 2 biônicos, um em cada
+metade. Derivada da estrutura de 32 duplas com duas vagas de avanço automático,
+comprimidas sem criar partidas fictícias. Vencedores avançam linearmente dentro
+de cada metade; as quedas e cruzamentos da repescagem seguem a mesma estrutura.
+As tabelas de outras quantidades não foram modificadas.
+O aviso de cruzamento das semifinais foi retirado. A ação administrativa permanece
+somente quando houver uma alternativa que reduza reencontros.
+Resumo do sorteio: cabeçalho, lista rolável e controles ocupam áreas separadas.
+Os controles não ficam sobre os confrontos quando a lista é maior que a tela.
+Nenhum SQL adicional é necessário se a base 5.2 já está instalada.
+
+VERIFICAÇÃO E AJUSTES 5.2.1
+A página pública observada nesta revisão carregava scripts e estilos com v=5.1.0,
+logo-color.png como favicon e não carregava portal.js, viewport.js ou print-bracket.js.
+O ZIP 5.2 entregue anteriormente contém esses recursos e a tabela de 30 duplas.
+Não foi identificada perda desses recursos no ZIP. A versão publicada difere do pacote.
+A versão 5.2.1 usa novas referências de cache e exibe v5.2.1 no rodapé.
+Foi incluído também favicon.ico na raiz, além dos ícones da pasta assets.
+
+Foi corrigida uma falha real de estilo no resumo do sorteio: main herdava margin:auto,
+impedindo a área de jogos de respeitar a altura disponível. Agora a lista rola dentro
+da própria área, acima dos controles. Confirmado em navegador com 30 duplas em
+largura de computador e largura de 390px, sem sobreposição e com todos os 16 jogos
+de estreia, incluindo os dois biônicos contra Vencedor do jogo N.
+
+PUBLICAÇÃO
+1. Guarde o backup JSON das competições e uma cópia do repositório atual.
+2. Extraia este ZIP em uma pasta nova para não misturar arquivos de entregas antigas.
+3. Copie o CONTEÚDO de Torneio-main para a raiz servida pela hospedagem, substituindo
+   os HTML, JavaScript, styles.css e a pasta assets. Mantenha também vendor.
+   Não deixe os arquivos novos apenas em uma subpasta Torneio-main com os HTML
+   antigos ainda na raiz. Não há instalação ou build.
+4. Aguarde o deploy da hospedagem. Confirme a branch e o diretório publicados.
+5. Abra em janela anônima ou use Ctrl+Shift+R. Confira v5.2.1 no rodapé, o favicon,
+   o portal da página inicial e a opção 30 duplas ao cadastrar categoria nova.
+
+Não existe SQL novo na 5.2.1. Para quem já instalou a base 5.2 com o SQL 004,
+basta publicar os arquivos. Se o SQL 004 ainda não foi executado, ele continua
+necessário para listar os torneios na página inicial. Os arquivos do banco estão
+na pasta supabase; ela não precisa ser publicada na hospedagem.
+
+A conexão, os IDs, os sorteios e os resultados existentes não são modificados por
+esta atualização. Nenhum salvamento foi feito no Supabase de produção durante
+esta conferência. Os testes no navegador usaram uma competição fictícia local.
+
+COMO ATUALIZAR
+1. Exporte um backup JSON e guarde o ZIP anterior. Interrompa os lançamentos e
+   feche os painéis antigos durante a atualização.
+2. Se a versão 5.1 já foi instalada com o SQL 003, execute somente o arquivo
+   supabase/004_v52_portal.sql no SQL Editor do Supabase como postgres.
+   Se ainda estiver na 5.0 ou 5.0.1, execute primeiro 003_v51_logos.sql e depois 004.
+   Não repita o SQL 001 se a migração V5 já foi feita.
+3. Depois do sucesso, copie TODO o conteúdo de Torneio-main para a raiz do GitHub.
+   Preserve as pastas assets e vendor e todos os arquivos JavaScript, inclusive
+   viewport.js, print-bracket.js e portal.js. Não há build ou dependências no site.
+   A pasta supabase contém os comandos do banco; não precisa ser publicada no site.
+4. Aguarde a publicação e atualize os navegadores. Confira uma competição existente,
+   seus resultados, o novo portal e a impressão antes de retomar os lançamentos.
+
+O SQL 004 cria somente a função de catálogo público e suas permissões. Não apaga,
+não sorteia novamente e não altera resultados ou links das competições existentes.
+O site de produção e o Supabase não foram alterados por nós.
+
+NOVO NA 5.2.0
+IMPRESSÃO: escolha uma categoria sorteada e clique em Imprimir tabela completa.
+A folha contém todos os jogos da categoria, inclusive semifinais, final e terceiro
+lugar, independentemente do zoom ou da visualização atual. O formato é A4 paisagem,
+uma página. No diálogo de impressão, use escala padrão e desative cabeçalhos e
+rodapés do navegador. Em tabelas grandes, os nomes ficam menores para caber tudo.
+
+ZOOM: pinça com dois dedos mantém o ponto ampliado sob os dedos. Arraste com um
+dedo ou com o mouse para navegar, com desaceleração ao soltar. Ctrl + rolagem
+amplia no computador. Ver tudo ajusta a tabela; Ler nomes volta ao começo em 100%.
+A posição é preservada quando chegam resultados. Os gestos ficam dentro da tabela;
+fora dela, a página continua rolando normalmente.
+
+PORTAL: index.html sem token agora lista os torneios publicados, com busca e filtros
+por andamento, preparação e finalizados. Os que estão em andamento vêm primeiro.
+Registros zerados ou não publicados não aparecem. Sem eventos, a lista fica vazia
+com a mensagem Não há competições no momento. Os links individuais são mantidos.
+A lista consulta somente metadados a cada 30 segundos quando a aba está visível,
+sem baixar todas as tabelas de jogos. Limite de 100 eventos por consulta.
+
+FAVICON: o ícone do navegador foi substituído pela imagem do troféu enviada.
+O navegador pode precisar de atualização forçada para descartar o ícone antigo.
+
+LOGO: escolher imagem mostra uma prévia local ANTES de enviar. Clique em Salvar logo
+para confirmar. Depois do salvamento no servidor, aparece Logo salva com sucesso.
+Se falhar, a prévia continua disponível e o painel indica que não foi salva.
+Descartar prévia mantém a logo anterior. A imagem continua sendo da competição,
+em formato 1:1, PNG/JPG/WebP de até 2 MB.
+
+MENU
+Cabeçalho fixo e barra lateral com Acompanhar, Chaveamento e Minhas competições.
+No celular, abra Menu para mostrar a barra lateral. Feche pelo botão, fundo ou Escape.
+
+SEMIFINAIS
+A análise compara as duas combinações possíveis entre os vencedores da chave
+principal e os classificados da repescagem. O botão Analisar e cruzar aparece
+apenas quando trocar os classificados da repescagem reduz os reencontros.
+A prévia mostra os confrontos e a redução antes de Confirmar cruzamento.
+Nenhum jogo anterior é modificado. O sistema mantém um classificado de cada chave
+em cada semifinal e preserva a final e a disputa de terceiro lugar.
+Só pode aplicar antes de qualquer lançamento das semifinais ou decisões, inclusive
+atribuição de quadra. Se as duas combinações tiverem o mesmo número de reencontros,
+a tabela original é mantida. A análise não altera a repescagem nem promete evitar
+reencontros que já tenham ocorrido antes das semifinais.
+O cruzamento fica salvo na categoria, incluindo seu backup. Um novo sorteio volta
+à configuração original da tabela. Categorias antigas em formato dinâmico não
+recebem esta opção para preservar suas regras e resultados.
+
+LOGO POR COMPETIÇÃO
+Abra a competição em admin.html e use Logo da competição > Escolher imagem >
+Salvar logo. Aceita PNG, JPG e WebP de até 2 MB. A imagem é centralizada em um
+quadrado de 512 x 512 pixels, sem cortar, e otimizada antes do envio.
+A logo vale para a competição inteira: painel, cards da lista, acompanhamento,
+chaveamento e apresentação do sorteio. Não é uma imagem por categoria.
+O arquivo fica separado no Supabase Storage e seu caminho fica na competição.
+A imagem não é embutida no JSON que o acompanhamento consulta. A leitura da logo
+é pública; somente o responsável ou a administração geral podem enviar ou remover.
+A substituição remove o arquivo anterior depois de salvar o novo caminho.
+O backup JSON guarda o caminho da imagem, não uma cópia do arquivo. Guarde também
+sua logo original se quiser restaurá-la depois de removê-la ou substituí-la.
+
+SORTEIO PARA LIVE
+Ao clicar Sortear e abrir chaveamento, o sorteio é feito e salvo uma única vez.
+Em seguida abre a apresentação dos confrontos iniciais com animação leve.
+Use Revelar primeiro confronto e Próximo confronto para controlar o ritmo da live.
+Reproduzir avança automaticamente; o mesmo botão pausa. Ver todos abre o resumo.
+Os jogos de estreia dos biônicos também são revelados e aparecem no resumo,
+com o número real do jogo e a dupla contra Vencedor do jogo N quando o adversário
+ainda depende de outra partida. Biônicos recebem a identificação.
+Tela cheia amplia a apresentação. Ver chaveamento encerra e abre a tabela.
+A tela respeita a preferência de movimento reduzido do aparelho.
+Apresentar sorteio, dentro do chaveamento, repete somente a exibição do sorteio
+já salvo. Não sorteia outra vez, não troca adversários e não altera resultados.
+
+DADOS E ACESSO
+Mantidos: várias competições, autorização por organizador, nomes editáveis,
+salvar sem sortear, exclusão de categoria, novo sorteio com SORTEAR e correções
+com registros preservados. A conta geral continua roteirizze@outlook.com.
+O novo SQL não altera contas, senhas, política de autorização ou configuração SMTP.
+Convites e recuperação por e-mail precisam de um serviço de envio configurado.
+Criar manualmente uma conta confirmada e Alterar senha dentro da conta continuam
+funcionando sem envio de e-mail. Consulte CONFIGURAR-EMAIL-SUPABASE.txt.
+
+
+VALIDAÇÃO DA ENTREGA
+107 testes JavaScript aprovados, incluindo tabelas completas, matemática da pinça,
+prévia e confirmação de logos, correções de resultados e acesso por conta.
+21 verificações PostgreSQL locais aprovadas, incluindo permissões, isolamento,
+catálogo público, dados antigos e repetição do SQL sem substituir competições.
+Portal, navegação, zoom, arraste e tabela vetorial de 32 duplas conferidos em navegador.
+O diálogo de impressão não abriu no navegador de teste: confirme a prévia de uma
+página no seu computador. Pinça em aparelho físico e envio real da logo ao Storage
+não foram executados nesta validação; os fluxos foram testados com simulação local.
+Para repetir a suíte: node --test tests/*.test.js
+
+INSTALAÇÃO NOVA
+Leia INSTALACAO-V5.md. Execute 001, 003 e 004 nessa ordem antes de publicar.

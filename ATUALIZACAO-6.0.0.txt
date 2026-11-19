@@ -1,0 +1,52 @@
+ROTEIRIZZE TORNEIOS 6.0.0
+
+TABELAS ADICIONADAS
+25 duplas: 7 biônicos, 9 partidas na primeira rodada, 48 jogos no total.
+26 duplas: 6 biônicos, 10 partidas na primeira rodada, 50 jogos no total.
+27 duplas: 5 biônicos, 11 partidas na primeira rodada, 52 jogos no total.
+29 duplas: 3 biônicos, 13 partidas na primeira rodada, 56 jogos no total.
+31 duplas: 1 biônico, 15 partidas na primeira rodada, 60 jogos no total.
+Os totais incluem duas semifinais, final e disputa de terceiro lugar.
+Agora todas as quantidades de 6 até 32 duplas estão disponíveis, sem intervalos.
+Nesta solicitação, 5 e 7 foram entendidos como 25 e 27 pelo contexto da lista
+anterior de tabelas ausentes. A tabela de 7 já existia; a de 5 não foi adicionada.
+
+COMO A LÓGICA FOI PRESERVADA
+As cinco tabelas derivam da estrutura existente de 32 duplas. As vagas vazias
+foram distribuídas entre as metades. Cada biônico deixa de jogar apenas a primeira
+rodada; a partida dispensada não recebe número e não produz um perdedor fictício.
+As entradas correspondentes também são retiradas da repescagem, comprimindo os
+avanços sem partida até restarem somente confrontos entre duas duplas reais.
+A chave dos vencedores mantém avanço linear dentro de cada metade. Quantidades
+ímpares ficam divididas em metades com diferença de uma dupla.
+As 22 tabelas que já existiam não foram alteradas.
+
+CRUZAMENTOS AUTOMÁTICOS
+Inclui as mudanças da 5.3.0: novos sorteios usam cruzamentos automáticos por etapa
+para reduzir reencontros na repescagem e, quando possível, nas semifinais. Não é
+garantia de ausência de reencontros até a final em qualquer combinação de resultados.
+A etapa aguarda seus classificados antes de definir e fixar seus confrontos.
+Partidas independentes já definidas continuam disponíveis para lançamento.
+Categorias e resultados antigos não são recalculados pela atualização.
+
+COMO ATUALIZAR
+1. Exporte os backups JSON e guarde o ZIP anterior. Pause os lançamentos enquanto
+   publica e atualiza todos os aparelhos.
+2. Se já executou supabase/005_v53_crossings.sql da 5.3.0, não existe SQL adicional.
+   Se ainda está na 5.2.4, execute esse mesmo SQL 005 antes de publicar a 6.0.0.
+   Ele pressupõe a base 001 e os complementos 003 e 004 já instalados.
+3. Publique todo o conteúdo de Torneio-main na raiz servida. Inclua todos os HTML,
+   JavaScript, assets e vendor. A pasta supabase não precisa ir para a hospedagem.
+   Não há build nem instalação de dependências para o site funcionar.
+4. Após a publicação, atualize a página (Ctrl+Shift+R) e confira v6.0.0 no rodapé.
+   As quantidades novas aparecem no cadastro de categoria. Categorias sorteadas
+   continuam com a quantidade, posições e resultados que já tinham.
+
+VALIDAÇÃO
+163 testes JavaScript aprovados. Incluem 432 torneios completos simulados nas
+27 quantidades disponíveis com a regra nova, além dos cenários históricos.
+Foram verificados progressão, quedas, classificados únicos, backups, quantidade
+de biônicos, impressão e desenho sem sobreposição. As cinco novas tabelas também
+foram conferidas no navegador com dados fictícios, sem cartões sobrepostos.
+O gerador reproduzível está em scripts/complete-tables.cjs; não é executado pelo site.
+Nenhum dado de produção nem publicação no GitHub foi alterado nesta entrega.

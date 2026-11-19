@@ -1,0 +1,85 @@
+ROTEIRIZZE TORNEIOS 5.1.0
+CONVITES, CONFIRMAÇÃO DE E-MAIL E SENHAS
+
+As configurações de e-mail abaixo não exigem SQL. A atualização 5.1.0 exige
+o SQL 003 das logos, conforme COMECE-AQUI.txt.
+Esta atualização altera os arquivos do site e a configuração de URLs do Auth.
+Não refaz sorteio nem altera dados das competições.
+
+1. PUBLIQUE OS ARQUIVOS
+Substitua o conteúdo da raiz do repositório pelo conteúdo de Torneio-main.
+Inclua auth.html, auth-page.js, auth-flow.js e auth-redirect.js, além dos arquivos
+atualizados. Mantenha assets e vendor. Aguarde a publicação da hospedagem.
+Para esta atualização, siga o SQL 003. Não repita o SQL 001 se já instalou a V5.
+
+2. CONFIGURE O SUPABASE
+Abra Authentication > URL Configuration.
+
+Site URL:
+https://torneio.roteirizze.site
+
+Adicione em Redirect URLs:
+https://torneio.roteirizze.site/auth.html
+https://torneio.roteirizze.site/admin.html
+
+Se sua hospedagem usa outro domínio oficial, use esse mesmo domínio nos três
+endereços acima. Abra o site sempre pelo mesmo domínio para manter a sessão.
+Mantenha somente URLs de retorno que sejam suas e necessárias para o projeto.
+
+3. CONFIRA OS MODELOS DE E-MAIL
+Abra Authentication > Email Templates.
+Nos modelos Invite user, Confirm sign up e Reset password, o link principal
+pode usar o endereço gerado pelo próprio Supabase:
+
+<a href="{{ .ConfirmationURL }}">Continuar no Roteirizze Torneios</a>
+
+Se você já personalizou o e-mail, pode manter o restante do conteúdo.
+Troque apenas o destino do botão se ele apontar para uma página antiga inexistente.
+Não acrescente /auth/callback ou /reset-password ao endereço do seu site:
+as páginas desta versão são auth.html e admin.html.
+
+A página também aceita templates personalizados que usam TokenHash, por exemplo:
+https://torneio.roteirizze.site/auth.html?token_hash={{ .TokenHash }}&type=invite
+Para recuperação use type=recovery; para confirmação use type=email.
+Não compartilhe links reais recebidos por e-mail: eles autenticam a conta.
+
+4. COMO A PESSOA USA
+Convite: no Supabase > Authentication > Users, envie o convite para o e-mail.
+Ao abrir o link, a pessoa verá Crie sua senha e os campos de nova senha e confirmação.
+Depois de salvar, ela pode abrir o painel. Autorize o e-mail em Organizadores
+na sua conta roteirizze@outlook.com. Confirmação de e-mail não concede permissão
+administrativa automaticamente.
+
+Recuperação: a pessoa usa Esqueci minha senha no login e recebe um novo link.
+Abra o link mais recente no mesmo navegador em que o pedido foi feito,
+pois o fluxo por código usa a verificação PKCE guardada nesse navegador.
+A página mostrará Defina sua nova senha. Se o link expirou ou já foi usado,
+ela verá a mensagem correspondente e poderá solicitar outro link.
+
+Alteração dentro da conta: no painel, clique Alterar senha no canto superior.
+Informe e confirme a nova senha. A alteração exige uma sessão autenticada válida.
+
+Confirmação: ao validar um link de confirmação, a página mostra E-mail confirmado.
+Links antigos que retornam à página inicial ou a admin.html são encaminhados
+para auth.html, preservando os parâmetros necessários à validação.
+
+5. CONFERÊNCIA APÓS PUBLICAR
+Abra o convite mais recente de uma conta de teste sua, defina a senha e confira
+se consegue entrar. Depois teste Esqueci minha senha e a recuperação do e-mail.
+Se já havia enviado convites antes de corrigir as URLs, envie um link novo.
+
+A entrega inclui testes de fluxo e da biblioteca real do Supabase usando respostas
+locais simuladas. O envio de e-mails e os links do seu projeto de produção ainda
+precisam dessa conferência após configurar as URLs. Nenhum convite ou e-mail foi
+enviado por nós e nenhuma senha real foi alterada.
+
+Referências oficiais:
+https://supabase.com/docs/guides/auth/redirect-urls
+https://supabase.com/docs/guides/auth/auth-email-templates
+https://supabase.com/docs/reference/javascript/auth-resetpasswordforemail
+
+ENVIO DE E-MAIL
+Sem SMTP próprio, o envio padrão do Supabase é restrito aos endereços da equipe
+do projeto. Para convidar outros organizadores ou recuperar suas senhas por e-mail,
+configure um serviço de envio. Criar manualmente uma conta confirmada e usar
+Alterar senha depois do login não exige envio de e-mail.

@@ -1,0 +1,28 @@
+ROTEIRIZZE TORNEIOS 5.2.2
+
+NAVEGAÇÃO DA TABELA
+O arraste move a tabela diretamente na distância percorrida pelo dedo ou mouse,
+inclusive quando a tabela inteira cabe na área. Não há inércia ao soltar.
+A pinça mantém o ponto entre os dois dedos. Ao retirar um dedo, o outro continua
+o arraste a partir da posição atual. As alterações são desenhadas uma vez por quadro,
+sem redimensionar a superfície de rolagem a cada movimento.
+Tela cheia utiliza a área real disponível do aparelho, sem escala intermediária de
+1920 x 1080. Ver tudo reenquadra a tabela; Ler nomes abre o começo em 100%.
+No computador, roda/trackpad movem a tabela; Ctrl + roda ou pinça do trackpad dão zoom.
+As setas do teclado movem a tabela quando sua área está focada.
+
+VALIDAÇÃO
+107 testes JavaScript aprovados. Incluem pinça com dois pontos, transição de dois
+para um dedo, cancelamento de gesto, zoom ancorado, pintura por quadro, ausência
+de inércia e arraste quando a tabela cabe inteira na tela.
+Arraste, zoom por controles e tela cheia conferidos no navegador de computador;
+arraste também conferido em uma área de 390px. Pinça física no celular não foi
+executada; o comportamento de dois dedos foi validado por simulação.
+
+PUBLICAÇÃO
+Este é um pacote completo. Publique o conteúdo de Torneio-main na raiz servida,
+incluindo assets e vendor. Aguarde o deploy, atualize a página e confira v5.2.2 no
+rodapé. Não há SQL adicional para quem já instalou a base 5.2. O SQL 004 continua
+necessário para o portal se ainda não foi executado.
+Conexão, regras, categorias, posições sorteadas e resultados foram preservados.
+Nenhum dado de produção foi modificado nesta entrega.

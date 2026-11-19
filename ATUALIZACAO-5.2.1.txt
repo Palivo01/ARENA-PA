@@ -1,0 +1,33 @@
+VERIFICAÇÃO E AJUSTES 5.2.1
+A página pública observada nesta revisão carregava scripts e estilos com v=5.1.0,
+logo-color.png como favicon e não carregava portal.js, viewport.js ou print-bracket.js.
+O ZIP 5.2 entregue anteriormente contém esses recursos e a tabela de 30 duplas.
+Não foi identificada perda desses recursos no ZIP. A versão publicada difere do pacote.
+A versão 5.2.1 usa novas referências de cache e exibe v5.2.1 no rodapé.
+Foi incluído também favicon.ico na raiz, além dos ícones da pasta assets.
+
+Foi corrigida uma falha real de estilo no resumo do sorteio: main herdava margin:auto,
+impedindo a área de jogos de respeitar a altura disponível. Agora a lista rola dentro
+da própria área, acima dos controles. Confirmado em navegador com 30 duplas em
+largura de computador e largura de 390px, sem sobreposição e com todos os 16 jogos
+de estreia, incluindo os dois biônicos contra Vencedor do jogo N.
+
+PUBLICAÇÃO
+1. Guarde o backup JSON das competições e uma cópia do repositório atual.
+2. Extraia este ZIP em uma pasta nova para não misturar arquivos de entregas antigas.
+3. Copie o CONTEÚDO de Torneio-main para a raiz servida pela hospedagem, substituindo
+   os HTML, JavaScript, styles.css e a pasta assets. Mantenha também vendor.
+   Não deixe os arquivos novos apenas em uma subpasta Torneio-main com os HTML
+   antigos ainda na raiz. Não há instalação ou build.
+4. Aguarde o deploy da hospedagem. Confirme a branch e o diretório publicados.
+5. Abra em janela anônima ou use Ctrl+Shift+R. Confira v5.2.1 no rodapé, o favicon,
+   o portal da página inicial e a opção 30 duplas ao cadastrar categoria nova.
+
+Não existe SQL novo na 5.2.1. Para quem já instalou a base 5.2 com o SQL 004,
+basta publicar os arquivos. Se o SQL 004 ainda não foi executado, ele continua
+necessário para listar os torneios na página inicial. Os arquivos do banco estão
+na pasta supabase; ela não precisa ser publicada na hospedagem.
+
+A conexão, os IDs, os sorteios e os resultados existentes não são modificados por
+esta atualização. Nenhum salvamento foi feito no Supabase de produção durante
+esta conferência. Os testes no navegador usaram uma competição fictícia local.

@@ -1,0 +1,33 @@
+ROTEIRIZZE TORNEIOS 6.0.1
+
+CORREÇÃO VISUAL DAS ORIGENS NA REPESCAGEM
+Os jogos da repescagem ainda sem cruzamento definido mostram as origens possíveis,
+como V5 ou V6 contra P7 ou P8, em vez de apenas Aguardando cruzamento.
+P significa perdedor e V significa vencedor do jogo indicado. Uma sequência como
+P1 a P4 inclui os perdedores dos jogos 1, 2, 3 e 4. Listas com intervalos ausentes
+não são agrupadas como se esses jogos também fossem elegíveis.
+Essas possibilidades não são confrontos fixos. Depois que o cruzamento automático
+é definido, os nomes e referências exatas passam a aparecer normalmente.
+A mesma informação aparece na tabela completa, na lista de jogos e na impressão.
+
+PRESERVAÇÃO
+Correção somente de apresentação. O motor, as tabelas, as regras, o sorteio,
+os cruzamentos definidos, as quadras atribuídas e os resultados foram preservados.
+Nenhuma gravação, migração ou recálculo foi executado no Supabase de produção.
+Não use Sortear novamente nem Zerar para instalar esta correção.
+
+ATUALIZAÇÃO DURANTE A COMPETIÇÃO
+Para quem já usa a 6.0.0 funcionando, não existe SQL novo.
+Faça uma pausa breve nos lançamentos, publique todo o conteúdo de Torneio-main
+na raiz servida e aguarde a conclusão do deploy. Inclua match-origins.js e todos
+os HTML, scripts, styles.css, assets e vendor. A pasta supabase não precisa subir.
+Depois, os operadores devem recarregar as páginas e conferir v6.0.1 no rodapé.
+Não é necessário exportar/importar para aplicar a correção nem refazer o sorteio.
+Se quiser, exporte um backup como cópia de segurança opcional.
+
+VALIDAÇÃO
+171 testes JavaScript aprovados. Novos testes verificam origens possíveis em todas
+as 27 tabelas, transição para referências exatas, exibição no painel e no público,
+impressão e preservação byte a byte dos dados de uma competição com jogo ao vivo.
+Conferência no navegador com tabela de 8 duplas pendente, 8 em andamento e 32 duplas:
+cartões sem sobreposição. Testes e visualização usaram somente dados fictícios.

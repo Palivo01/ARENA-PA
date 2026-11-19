@@ -1,0 +1,55 @@
+ROTEIRIZZE TORNEIOS 5.3.0
+
+CRUZAMENTOS AUTOMÁTICOS PARA NOVOS SORTEIOS
+A chave dos vencedores mantém seu avanço linear em cada metade. Os biônicos,
+os IDs das partidas e a quantidade de jogos de cada tabela continuam iguais.
+
+A cada etapa da repescagem, o sistema aguarda seus classificados e escolhe a
+combinação com menos reencontros, preservando as entradas de perdedores e
+vencedores previstas na estrutura. Em empate, prefere duplas de metades opostas.
+A semifinal também cruza automaticamente os classificados da repescagem se isso
+reduzir reencontros. Não depende de um botão durante a operação do torneio.
+
+Os cruzamentos de uma etapa ficam fixos assim que ela é liberada. Não mudam
+por resultados posteriores. As semifinais ficam bloqueadas para troca após
+qualquer uma receber quadra, início ou resultado. Correções continuam preservando
+os registros e sinalizando resultados incompatíveis com participantes corrigidos.
+Uma correção de origem não refaz automaticamente confrontos já publicados.
+
+Não é uma promessa de ausência absoluta de reencontros até a final: o sistema
+minimiza os reencontros entre os classificados elegíveis da etapa, dentro da
+estrutura existente. Há cenários em que um reencontro é inevitável.
+As partidas já definidas dos vencedores continuam livres para lançamento. Uma
+etapa da repescagem precisa receber seus classificados antes de definir as
+combinações; isso não bloqueia partidas independentes.
+
+PRESERVAÇÃO DAS COMPETIÇÕES
+Categorias antigas mantêm seu sorteio, rotas, semifinal e resultados existentes.
+A nova regra vale para sorteios feitos nesta versão, incluindo Sortear novamente.
+Não use Sortear novamente em competição em andamento para aplicar esta regra:
+essa ação apaga os resultados da categoria e exige digitar SORTEAR.
+Nenhum dado do site ou do Supabase de produção foi alterado nesta entrega.
+
+COMO ATUALIZAR QUEM JÁ ESTÁ NA 5.2.4
+1. Exporte os backups JSON e guarde o ZIP anterior. Pause os lançamentos e feche
+   os painéis antigos para atualizar todos os aparelhos juntos.
+2. Execute somente supabase/005_v53_crossings.sql no SQL Editor como postgres.
+   Ele pressupõe a base 001 e os complementos 003 e 004 já instalados.
+   Não altera registros, sorteios, placares, tokens nem revisões existentes.
+   Bloqueia gravações de clientes anteriores para não descartar as rotas novas.
+3. Substitua todo o conteúdo servido pelo conteúdo de Torneio-main. Inclua
+   crossings.js e todos os scripts, HTML, assets e vendor. Não precisa de build.
+   A pasta supabase não precisa ser enviada à hospedagem.
+4. Aguarde a publicação, atualize as páginas (Ctrl+Shift+R) e confira v5.3.0.
+   Confira uma competição antiga antes de retomar os lançamentos.
+
+VERIFICAÇÃO
+146 testes JavaScript aprovados. Incluem 352 torneios completos simulados nas
+22 quantidades disponíveis (6 a 24, 28, 30 e 32 duplas), com lançamentos em ordens
+variadas, validação de backups, linearidade dos vencedores e rotas sem duplicação.
+O caso de reencontro Theo/Palivo contra Peu/Leo foi reproduzido na tabela antiga;
+a nova regra foi testada com alternativas que evitam esse reencontro.
+30 verificações locais PostgreSQL aprovadas: permissões, revisões, migração
+repetível e preservação de registros. Visualização conferida em navegador com
+dados fictícios locais. Não houve teste físico de pinça em celular nesta revisão.
+Favicon, gestos, memória de categoria e tabelas, inclusive 30 duplas, preservados.
